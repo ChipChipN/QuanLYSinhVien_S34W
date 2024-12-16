@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOAN" Class="lophoc_sinhvienDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DTNMSI\SQLEXPRESS2012;Initial Catalog=DOAN;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="QLLOPHOC_QLDIEM.Properties.Settings" SettingsPropertyName="DOANConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DIEM" Member="DIEMs">
+    <Type Name="DIEM">
+      <Column Name="MADIEM" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MASV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DIEMSO" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="SINHVIEN_DIEM" Member="SINHVIEN" ThisKey="MASV" OtherKey="MASV" Type="SINHVIEN" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GIAOVIEN" Member="GIAOVIENs">
+    <Type Name="GIAOVIEN">
+      <Column Name="MAGV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HOTEN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GIOITINH" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="NGAYSINH" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SODT" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="GIAOVIEN_LOPHOC" Member="LOPHOCs" ThisKey="MAGV" OtherKey="MAGV" Type="LOPHOC" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOPHOC" Member="LOPHOCs">
+    <Type Name="LOPHOC">
+      <Column Name="MALOP" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENLOP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SOLUONG_SV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MAMON" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MAGV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="LOPHOC_LOPHOC_SINHVIEN" Member="LOPHOC_SINHVIENs" ThisKey="MALOP" OtherKey="MALOP" Type="LOPHOC_SINHVIEN" />
+      <Association Name="GIAOVIEN_LOPHOC" Member="GIAOVIEN" ThisKey="MAGV" OtherKey="MAGV" Type="GIAOVIEN" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="MONHOC_LOPHOC" Member="MONHOC" ThisKey="MAMON" OtherKey="MAMON" Type="MONHOC" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOPHOC_SINHVIEN" Member="LOPHOC_SINHVIENs">
+    <Type Name="LOPHOC_SINHVIEN">
+      <Column Name="MALOP" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MASV" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="LOPHOC_LOPHOC_SINHVIEN" Member="LOPHOC" ThisKey="MALOP" OtherKey="MALOP" Type="LOPHOC" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="SINHVIEN_LOPHOC_SINHVIEN" Member="SINHVIEN" ThisKey="MASV" OtherKey="MASV" Type="SINHVIEN" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MONHOC" Member="MONHOCs">
+    <Type Name="MONHOC">
+      <Column Name="MAMON" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENMONHOC" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="MONHOC_LOPHOC" Member="LOPHOCs" ThisKey="MAMON" OtherKey="MAMON" Type="LOPHOC" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SINHVIEN" Member="SINHVIENs">
+    <Type Name="SINHVIEN">
+      <Column Name="MASV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HO" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TENDEM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TEN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NGAYSINH" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GIOITINH" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="QUEQUAN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DIENTHOAI" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="SINHVIEN_DIEM" Member="DIEMs" ThisKey="MASV" OtherKey="MASV" Type="DIEM" />
+      <Association Name="SINHVIEN_LOPHOC_SINHVIEN" Member="LOPHOC_SINHVIENs" ThisKey="MASV" OtherKey="MASV" Type="LOPHOC_SINHVIEN" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TAIKHOAN" Member="TAIKHOANs">
+    <Type Name="TAIKHOAN">
+      <Column Name="MATK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TENTK" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MATKHAU" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="ROLE" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
